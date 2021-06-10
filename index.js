@@ -11,7 +11,7 @@ const scene = new BABYLON.Scene(engine);
 const light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0, 1, 0), scene);
 
 // Setup a Zappar camera instead of one of Babylon's cameras
-const camera = new ZapparBabylon.Camera(scene);
+const camera = new ZapparBabylon.Camera('camera', scene);
 
 // Request the necessary permission from the user
 ZapparBabylon.permissionRequestUI().then((granted) => {
@@ -20,7 +20,7 @@ ZapparBabylon.permissionRequestUI().then((granted) => {
 });
 
 const instantWorldTracker = new ZapparBabylon.InstantWorldTracker();
-const trackerTransformNode = new ZapparBabylon.InstantWorldAnchorGroup(camera, instantWorldTracker);
+const trackerTransformNode = new ZapparBabylon.InstantWorldAnchorTransformNode('tracker', camera, instantWorldTracker, scene);
 
 // Add some content to the instant tracker
 const box = BABYLON.Mesh.CreateBox('box', 1, scene, false, BABYLON.Mesh.DOUBLESIDE)

@@ -1,3 +1,6 @@
+
+
+
 // Setup BabylonJS in the usual way
 const canvas = document.createElement('canvas');
 document.body.appendChild(canvas);
@@ -7,11 +10,12 @@ const engine = new BABYLON.Engine(canvas, true, {
     stencil: true
 });
 
-const scene = new BABYLON.Scene(engine);
+
+export const scene = new BABYLON.Scene(engine);
 const light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0, 1, 0), scene);
 
 // Setup a Zappar camera instead of one of Babylon's cameras
-const camera = new ZapparBabylon.Camera('camera', scene);
+export const camera = new ZapparBabylon.Camera('camera', scene);
 
 // Request the necessary permission from the user
 ZapparBabylon.permissionRequestUI().then((granted) => {
@@ -28,9 +32,9 @@ box.parent = trackerTransformNode;
 
 let hasPlaced = false;
 
-
-const button = document.getElementById('zappar-placement-ui');
+const button = document.getElementById('zappar-placement-ui') || document.createElement('div');
 button.addEventListener('click', () => {
+    button.remove();
     hasPlaced = true;
 });
 
@@ -42,7 +46,7 @@ window.addEventListener('resize', () => {
 engine.runRenderLoop(() => {
     camera.updateFrame();
     if (!hasPlaced) {
-        instantWorldTracker.setAnchorPoseFromCameraOffset(0, 0, -10);
+        instantWorldTracker.setAnchorPoseFromCameraOffset(0, 0, -5);
     }
     scene.render();
 });
